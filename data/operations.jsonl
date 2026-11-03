@@ -1,0 +1,230 @@
+{"date": "2026-05-06", "label": "Resto Démo", "amount": -21.08, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-05-06", "label": "Assurance Habitation", "amount": -28.5, "account": "compte_joint", "categorie": "assurance_habitation", "source": "demo"}
+{"date": "2026-05-06", "label": "Assurance Auto", "amount": -42.0, "account": "compte_courant", "categorie": "auto_assurance", "source": "demo"}
+{"date": "2026-05-07", "label": "Resto Démo", "amount": -19.22, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-05-07", "label": "Boutique Démo", "amount": -45.85, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-05-08", "label": "Boulangerie Démo", "amount": -10.06, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-05-08", "label": "Spotify", "amount": -11.99, "account": "compte_courant", "categorie": "abonnements", "source": "demo"}
+{"date": "2026-05-09", "label": "Resto Démo", "amount": -15.19, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-05-10", "label": "Fournisseur Énergie", "amount": -95.0, "account": "compte_joint", "categorie": "energie", "source": "demo"}
+{"date": "2026-05-11", "label": "Resto Démo", "amount": -19.52, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-05-11", "label": "Boutique Démo", "amount": -50.26, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-05-13", "label": "Supermarché Démo", "amount": -69.68, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-05-13", "label": "Resto Démo", "amount": -24.52, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-05-14", "label": "Boulangerie Démo", "amount": -5.15, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-05-15", "label": "Supermarché Démo", "amount": -64.16, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-05-15", "label": "Netflix", "amount": -13.49, "account": "compte_courant", "categorie": "abonnements", "source": "demo"}
+{"date": "2026-05-16", "label": "Supermarché Démo", "amount": -58.84, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-05-17", "label": "Supermarché Démo", "amount": -23.22, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-05-17", "label": "Station Démo", "amount": -55.26, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-05-18", "label": "Boulangerie Démo", "amount": -9.21, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-05-19", "label": "Supermarché Démo", "amount": -47.61, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-05-21", "label": "Boutique Démo", "amount": -62.14, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-05-21", "label": "Station Démo", "amount": -77.16, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-05-22", "label": "Supermarché Démo", "amount": -19.34, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-05-22", "label": "Boutique Démo", "amount": -83.18, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-05-22", "label": "Station Démo", "amount": -70.42, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-05-25", "label": "Supermarché Démo", "amount": -31.85, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-05-26", "label": "Supermarché Démo", "amount": -82.91, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-05-26", "label": "Boulangerie Démo", "amount": -4.38, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-05-28", "label": "Salaire", "amount": 2600.0, "account": "compte_courant", "categorie": "salaire", "source": "demo"}
+{"date": "2026-05-30", "label": "Supermarché Démo", "amount": -84.24, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-05-30", "label": "Station Démo", "amount": -79.97, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-05-31", "label": "Boulangerie Démo", "amount": -6.86, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-05-31", "label": "Cinéma Démo", "amount": -17.58, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-06-01", "label": "Supermarché Démo", "amount": -73.81, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-06-02", "label": "Supermarché Démo", "amount": -37.25, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-06-02", "label": "Cinéma Démo", "amount": -21.68, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-06-02", "label": "Salle de sport", "amount": -29.9, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-06-03", "label": "Resto Démo", "amount": -43.71, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-06-03", "label": "Boulangerie Démo", "amount": -3.86, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-06-03", "label": "Opérateur Mobile", "amount": -19.99, "account": "compte_courant", "categorie": "telecom", "source": "demo"}
+{"date": "2026-06-04", "label": "Frais de tenue de compte", "amount": -3.0, "account": "compte_courant", "categorie": "frais_bancaires", "source": "demo"}
+{"date": "2026-06-05", "label": "Loyer", "amount": -780.0, "account": "compte_joint", "categorie": "immobilier_autre", "source": "demo"}
+{"date": "2026-06-06", "label": "Supermarché Démo", "amount": -71.39, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-06-06", "label": "Resto Démo", "amount": -27.12, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-06-06", "label": "Station Démo", "amount": -48.53, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-06-06", "label": "Assurance Habitation", "amount": -28.5, "account": "compte_joint", "categorie": "assurance_habitation", "source": "demo"}
+{"date": "2026-06-06", "label": "Assurance Auto", "amount": -42.0, "account": "compte_courant", "categorie": "auto_assurance", "source": "demo"}
+{"date": "2026-06-08", "label": "Boulangerie Démo", "amount": -10.17, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-06-08", "label": "Spotify", "amount": -11.99, "account": "compte_courant", "categorie": "abonnements", "source": "demo"}
+{"date": "2026-06-09", "label": "Supermarché Démo", "amount": -23.03, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-06-10", "label": "Supermarché Démo", "amount": -51.64, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-06-10", "label": "Boutique Démo", "amount": -75.06, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-06-10", "label": "Cinéma Démo", "amount": -25.42, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-06-10", "label": "Fournisseur Énergie", "amount": -95.0, "account": "compte_joint", "categorie": "energie", "source": "demo"}
+{"date": "2026-06-11", "label": "Supermarché Démo", "amount": -70.59, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-06-11", "label": "Boutique Démo", "amount": -29.78, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-06-12", "label": "Boulangerie Démo", "amount": -3.27, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-06-14", "label": "Resto Démo", "amount": -42.69, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-06-14", "label": "Pharmacie Démo", "amount": -31.57, "account": "compte_joint", "categorie": "sante", "source": "demo"}
+{"date": "2026-06-15", "label": "Supermarché Démo", "amount": -84.81, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-06-15", "label": "Netflix", "amount": -13.49, "account": "compte_courant", "categorie": "abonnements", "source": "demo"}
+{"date": "2026-06-17", "label": "Supermarché Démo", "amount": -16.77, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-06-19", "label": "Boulangerie Démo", "amount": -6.35, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-06-20", "label": "Station Démo", "amount": -77.02, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-06-21", "label": "Boutique Démo", "amount": -106.35, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-06-24", "label": "Supermarché Démo", "amount": -36.52, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-06-25", "label": "Station Démo", "amount": -60.62, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-06-26", "label": "Cinéma Démo", "amount": -14.9, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-06-27", "label": "Resto Démo", "amount": -25.68, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-06-28", "label": "Resto Démo", "amount": -36.78, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-06-28", "label": "Salaire", "amount": 2600.0, "account": "compte_courant", "categorie": "salaire", "source": "demo"}
+{"date": "2026-06-29", "label": "Resto Démo", "amount": -20.22, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-07-02", "label": "Station Démo", "amount": -51.43, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-07-02", "label": "Salle de sport", "amount": -29.9, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-07-03", "label": "Resto Démo", "amount": -19.63, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-07-03", "label": "Station Démo", "amount": -56.3, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-07-03", "label": "Opérateur Mobile", "amount": -19.99, "account": "compte_courant", "categorie": "telecom", "source": "demo"}
+{"date": "2026-07-04", "label": "Supermarché Démo", "amount": -46.51, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-04", "label": "Frais de tenue de compte", "amount": -3.0, "account": "compte_courant", "categorie": "frais_bancaires", "source": "demo"}
+{"date": "2026-07-05", "label": "Supermarché Démo", "amount": -41.38, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-05", "label": "Loyer", "amount": -780.0, "account": "compte_joint", "categorie": "immobilier_autre", "source": "demo"}
+{"date": "2026-07-06", "label": "Station Démo", "amount": -53.45, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-07-06", "label": "Assurance Habitation", "amount": -28.5, "account": "compte_joint", "categorie": "assurance_habitation", "source": "demo"}
+{"date": "2026-07-06", "label": "Assurance Auto", "amount": -42.0, "account": "compte_courant", "categorie": "auto_assurance", "source": "demo"}
+{"date": "2026-07-07", "label": "Supermarché Démo", "amount": -50.05, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-07", "label": "Resto Démo", "amount": -32.53, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-07-07", "label": "Boulangerie Démo", "amount": -5.94, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-07", "label": "Station Démo", "amount": -65.71, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-07-08", "label": "Supermarché Démo", "amount": -43.43, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-08", "label": "Spotify", "amount": -11.99, "account": "compte_courant", "categorie": "abonnements", "source": "demo"}
+{"date": "2026-07-09", "label": "Supermarché Démo", "amount": -21.14, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-09", "label": "Resto Démo", "amount": -29.8, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-07-10", "label": "Boulangerie Démo", "amount": -2.2, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-10", "label": "Fournisseur Énergie", "amount": -95.0, "account": "compte_joint", "categorie": "energie", "source": "demo"}
+{"date": "2026-07-11", "label": "Supermarché Démo", "amount": -67.46, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-11", "label": "Boulangerie Démo", "amount": -8.07, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-12", "label": "Supermarché Démo", "amount": -16.93, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-13", "label": "Boulangerie Démo", "amount": -9.72, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-15", "label": "Resto Démo", "amount": -43.71, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-07-15", "label": "Netflix", "amount": -13.49, "account": "compte_courant", "categorie": "abonnements", "source": "demo"}
+{"date": "2026-07-17", "label": "Supermarché Démo", "amount": -78.88, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-17", "label": "Boulangerie Démo", "amount": -10.82, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-18", "label": "Supermarché Démo", "amount": -78.82, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-19", "label": "Supermarché Démo", "amount": -15.76, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-19", "label": "Boulangerie Démo", "amount": -9.2, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-20", "label": "Boulangerie Démo", "amount": -4.22, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-22", "label": "Supermarché Démo", "amount": -29.44, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-22", "label": "Resto Démo", "amount": -29.68, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-07-24", "label": "Supermarché Démo", "amount": -55.06, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-07-25", "label": "Pharmacie Démo", "amount": -38.11, "account": "compte_joint", "categorie": "sante", "source": "demo"}
+{"date": "2026-07-26", "label": "Boutique Démo", "amount": -101.83, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-07-26", "label": "Station Démo", "amount": -45.97, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-07-27", "label": "Resto Démo", "amount": -37.23, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-07-28", "label": "Salaire", "amount": 2600.0, "account": "compte_courant", "categorie": "salaire", "source": "demo"}
+{"date": "2026-07-30", "label": "Supermarché Démo", "amount": -48.79, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-08-01", "label": "Station Démo", "amount": -46.64, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-08-02", "label": "Boulangerie Démo", "amount": -8.89, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-08-02", "label": "Salle de sport", "amount": -29.9, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-08-03", "label": "Supermarché Démo", "amount": -17.99, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-08-03", "label": "Station Démo", "amount": -78.48, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-08-03", "label": "Opérateur Mobile", "amount": -19.99, "account": "compte_courant", "categorie": "telecom", "source": "demo"}
+{"date": "2026-08-04", "label": "Station Démo", "amount": -70.25, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-08-04", "label": "Frais de tenue de compte", "amount": -3.0, "account": "compte_courant", "categorie": "frais_bancaires", "source": "demo"}
+{"date": "2026-08-05", "label": "Loyer", "amount": -780.0, "account": "compte_joint", "categorie": "immobilier_autre", "source": "demo"}
+{"date": "2026-08-06", "label": "Supermarché Démo", "amount": -65.26, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-08-06", "label": "Assurance Habitation", "amount": -28.5, "account": "compte_joint", "categorie": "assurance_habitation", "source": "demo"}
+{"date": "2026-08-06", "label": "Assurance Auto", "amount": -42.0, "account": "compte_courant", "categorie": "auto_assurance", "source": "demo"}
+{"date": "2026-08-08", "label": "Spotify", "amount": -11.99, "account": "compte_courant", "categorie": "abonnements", "source": "demo"}
+{"date": "2026-08-10", "label": "Supermarché Démo", "amount": -87.99, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-08-10", "label": "Fournisseur Énergie", "amount": -95.0, "account": "compte_joint", "categorie": "energie", "source": "demo"}
+{"date": "2026-08-15", "label": "Resto Démo", "amount": -29.77, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-08-15", "label": "Netflix", "amount": -13.49, "account": "compte_courant", "categorie": "abonnements", "source": "demo"}
+{"date": "2026-08-16", "label": "Supermarché Démo", "amount": -67.31, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-08-16", "label": "Station Démo", "amount": -69.79, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-08-17", "label": "Cinéma Démo", "amount": -20.05, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-08-19", "label": "Resto Démo", "amount": -27.49, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-08-21", "label": "Supermarché Démo", "amount": -20.13, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-08-22", "label": "Cinéma Démo", "amount": -25.92, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-08-23", "label": "Resto Démo", "amount": -29.53, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-08-25", "label": "Supermarché Démo", "amount": -75.35, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-08-27", "label": "Supermarché Démo", "amount": -57.89, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-08-28", "label": "Boutique Démo", "amount": -98.83, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-08-28", "label": "Salaire", "amount": 2600.0, "account": "compte_courant", "categorie": "salaire", "source": "demo"}
+{"date": "2026-08-31", "label": "Boulangerie Démo", "amount": -4.95, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-09-02", "label": "Salle de sport", "amount": -29.9, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-09-03", "label": "Opérateur Mobile", "amount": -19.99, "account": "compte_courant", "categorie": "telecom", "source": "demo"}
+{"date": "2026-09-04", "label": "Supermarché Démo", "amount": -55.24, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-09-04", "label": "Frais de tenue de compte", "amount": -3.0, "account": "compte_courant", "categorie": "frais_bancaires", "source": "demo"}
+{"date": "2026-09-05", "label": "Supermarché Démo", "amount": -32.54, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-09-05", "label": "Resto Démo", "amount": -41.18, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-09-05", "label": "Cinéma Démo", "amount": -26.48, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-09-05", "label": "Loyer", "amount": -780.0, "account": "compte_joint", "categorie": "immobilier_autre", "source": "demo"}
+{"date": "2026-09-06", "label": "Supermarché Démo", "amount": -45.62, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-09-06", "label": "Resto Démo", "amount": -43.23, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-09-06", "label": "Station Démo", "amount": -75.49, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-09-06", "label": "Assurance Habitation", "amount": -28.5, "account": "compte_joint", "categorie": "assurance_habitation", "source": "demo"}
+{"date": "2026-09-06", "label": "Assurance Auto", "amount": -42.0, "account": "compte_courant", "categorie": "auto_assurance", "source": "demo"}
+{"date": "2026-09-08", "label": "Supermarché Démo", "amount": -51.7, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-09-08", "label": "Boutique Démo", "amount": -68.17, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-09-08", "label": "Spotify", "amount": -11.99, "account": "compte_courant", "categorie": "abonnements", "source": "demo"}
+{"date": "2026-09-09", "label": "Supermarché Démo", "amount": -66.43, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-09-10", "label": "Cinéma Démo", "amount": -25.74, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-09-10", "label": "Fournisseur Énergie", "amount": -95.0, "account": "compte_joint", "categorie": "energie", "source": "demo"}
+{"date": "2026-09-11", "label": "Supermarché Démo", "amount": -57.34, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-09-11", "label": "Resto Démo", "amount": -37.25, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-09-12", "label": "Resto Démo", "amount": -40.33, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-09-12", "label": "Boulangerie Démo", "amount": -3.3, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-09-12", "label": "Pharmacie Démo", "amount": -8.48, "account": "compte_joint", "categorie": "sante", "source": "demo"}
+{"date": "2026-09-13", "label": "Station Démo", "amount": -69.67, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-09-14", "label": "Pharmacie Démo", "amount": -33.06, "account": "compte_joint", "categorie": "sante", "source": "demo"}
+{"date": "2026-09-15", "label": "Station Démo", "amount": -59.16, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-09-15", "label": "Netflix", "amount": -13.49, "account": "compte_courant", "categorie": "abonnements", "source": "demo"}
+{"date": "2026-09-16", "label": "Boulangerie Démo", "amount": -2.81, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-09-16", "label": "Station Démo", "amount": -51.0, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-09-17", "label": "Supermarché Démo", "amount": -89.6, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-09-17", "label": "Station Démo", "amount": -68.07, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-09-19", "label": "Resto Démo", "amount": -26.08, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-09-20", "label": "Resto Démo", "amount": -15.19, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-09-21", "label": "Supermarché Démo", "amount": -24.17, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-09-24", "label": "Boutique Démo", "amount": -140.78, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-09-25", "label": "Boutique Démo", "amount": -133.08, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-09-26", "label": "Resto Démo", "amount": -36.62, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-09-27", "label": "Boulangerie Démo", "amount": -2.53, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-09-28", "label": "Salaire", "amount": 2600.0, "account": "compte_courant", "categorie": "salaire", "source": "demo"}
+{"date": "2026-09-29", "label": "Supermarché Démo", "amount": -65.89, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-09-29", "label": "Boutique Démo", "amount": -71.38, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-09-29", "label": "Cinéma Démo", "amount": -16.03, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-09-30", "label": "Supermarché Démo", "amount": -34.16, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-09-30", "label": "Boulangerie Démo", "amount": -9.47, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-01", "label": "Boulangerie Démo", "amount": -10.62, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-01", "label": "Boutique Démo", "amount": -22.44, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-10-02", "label": "Station Démo", "amount": -52.99, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-10-02", "label": "Salle de sport", "amount": -29.9, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-10-03", "label": "Boulangerie Démo", "amount": -10.44, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-03", "label": "Opérateur Mobile", "amount": -19.99, "account": "compte_courant", "categorie": "telecom", "source": "demo"}
+{"date": "2026-10-04", "label": "Supermarché Démo", "amount": -40.46, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-04", "label": "Boulangerie Démo", "amount": -7.1, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-04", "label": "Frais de tenue de compte", "amount": -3.0, "account": "compte_courant", "categorie": "frais_bancaires", "source": "demo"}
+{"date": "2026-10-05", "label": "Loyer", "amount": -780.0, "account": "compte_joint", "categorie": "immobilier_autre", "source": "demo"}
+{"date": "2026-10-06", "label": "Boulangerie Démo", "amount": -9.73, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-06", "label": "Assurance Habitation", "amount": -28.5, "account": "compte_joint", "categorie": "assurance_habitation", "source": "demo"}
+{"date": "2026-10-06", "label": "Assurance Auto", "amount": -42.0, "account": "compte_courant", "categorie": "auto_assurance", "source": "demo"}
+{"date": "2026-10-08", "label": "Supermarché Démo", "amount": -48.17, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-08", "label": "Boutique Démo", "amount": -85.95, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-10-08", "label": "Pharmacie Démo", "amount": -34.61, "account": "compte_joint", "categorie": "sante", "source": "demo"}
+{"date": "2026-10-08", "label": "Spotify", "amount": -11.99, "account": "compte_courant", "categorie": "abonnements", "source": "demo"}
+{"date": "2026-10-09", "label": "Supermarché Démo", "amount": -79.82, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-10", "label": "Fournisseur Énergie", "amount": -95.0, "account": "compte_joint", "categorie": "energie", "source": "demo"}
+{"date": "2026-10-11", "label": "Supermarché Démo", "amount": -22.76, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-13", "label": "Station Démo", "amount": -43.78, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-10-15", "label": "Netflix", "amount": -13.49, "account": "compte_courant", "categorie": "abonnements", "source": "demo"}
+{"date": "2026-10-18", "label": "Station Démo", "amount": -73.78, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-10-19", "label": "Boulangerie Démo", "amount": -5.37, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-21", "label": "Supermarché Démo", "amount": -48.31, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-26", "label": "Boulangerie Démo", "amount": -2.53, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-27", "label": "Supermarché Démo", "amount": -84.81, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-28", "label": "Resto Démo", "amount": -35.28, "account": "compte_courant", "categorie": "restauration", "source": "demo"}
+{"date": "2026-10-28", "label": "Boutique Démo", "amount": -30.3, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-10-28", "label": "Salaire", "amount": 2600.0, "account": "compte_courant", "categorie": "salaire", "source": "demo"}
+{"date": "2026-10-29", "label": "Boulangerie Démo", "amount": -4.88, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-29", "label": "Station Démo", "amount": -56.79, "account": "compte_courant", "categorie": "auto_carburant", "source": "demo"}
+{"date": "2026-10-30", "label": "Supermarché Démo", "amount": -82.89, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-30", "label": "Boulangerie Démo", "amount": -7.15, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-31", "label": "Supermarché Démo", "amount": -46.24, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-31", "label": "Boulangerie Démo", "amount": -11.75, "account": "compte_courant", "categorie": "alimentation", "source": "demo"}
+{"date": "2026-10-31", "label": "Boutique Démo", "amount": -88.39, "account": "compte_courant", "categorie": "shopping", "source": "demo"}
+{"date": "2026-11-01", "label": "Cinéma Démo", "amount": -25.77, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-11-02", "label": "Cinéma Démo", "amount": -20.92, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}
+{"date": "2026-11-02", "label": "Salle de sport", "amount": -29.9, "account": "compte_courant", "categorie": "loisirs", "source": "demo"}

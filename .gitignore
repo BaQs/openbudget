@@ -1,0 +1,18 @@
+# openbudget : ne jamais versionner vos vraies données ni vos secrets.
+__pycache__/
+*.pyc
+.DS_Store
+
+# Données réelles (gardez-les hors du dépôt) :
+/private-data/
+
+# Secrets / config utilisateur (clé privée Enable, mot de passe de l'app) :
+.openbudget/
+
+# Fichiers écrits par l'app au fil de l'usage dans ./data : ils contiennent VOS données.
+# (les 4 fichiers de démo — accounts.json, operations.jsonl, recurrences.json,
+#  referentiel-categories.json — restent, eux, versionnés.)
+data/budget.json
+data/regles_auto.json
+data/merchant_aliases.json
+data/account_maps.json

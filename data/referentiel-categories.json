@@ -1,0 +1,368 @@
+{
+  "_description": "Référentiel de catégories openbudget. Chaque opération stocke la clé normalisée. Adaptez labels et alias à vos besoins.",
+  "_version": "1.0",
+  "_updated": "2026-11-02",
+  "categories": {
+    "alimentation": {
+      "label": "🛒 Alimentation",
+      "groupe": "quotidien",
+      "aliases": [
+        "Alimentation, supermarché",
+        "Alimentation",
+        "Courses"
+      ]
+    },
+    "restauration": {
+      "label": "🍽️ Restauration",
+      "groupe": "quotidien",
+      "aliases": [
+        "Restaurants, soirées",
+        "Snacks, repas au travail",
+        "restaurants",
+        "Restaurants, bars, discothèques…"
+      ]
+    },
+    "shopping": {
+      "label": "🛍️ Shopping",
+      "groupe": "quotidien",
+      "aliases": [
+        "Shopping/e-Commerce",
+        "Habillement, accessoires",
+        "Electronique et informatique",
+        "Equipements sportifs et artistiques",
+        "Livres, CD/DVD, bijoux, jouets…",
+        "Vêtements et accessoires"
+      ]
+    },
+    "vie_courante": {
+      "label": "🏠 Vie courante",
+      "groupe": "quotidien",
+      "aliases": [
+        "Dépenses vie courante",
+        "Meubles, équipement",
+        "Travaux, déco, jardin",
+        "Electronique, multimédia",
+        "Poste, courrier",
+        "Entretien logement",
+        "divers",
+        "Bricolage et jardinage",
+        "Mobilier, électroménager, décoration…"
+      ]
+    },
+    "sante": {
+      "label": "🏥 Santé",
+      "groupe": "quotidien",
+      "aliases": [
+        "Frais, remb santé",
+        "Santé, prévoyance",
+        "Coiffeur, esthétique, cosmétique, soins",
+        "beaute",
+        "Bien-être et soins (coiffeur, parfums…)",
+        "Médecins et frais médicaux",
+        "Pharmacie et laboratoire"
+      ]
+    },
+    "loisirs": {
+      "label": "🎮 Loisirs & Sorties",
+      "groupe": "quotidien",
+      "aliases": [
+        "Sorties détente",
+        "Sorties culturelles",
+        "Sorties, voyages",
+        "Musique, livres, films",
+        "Jeux vidéo",
+        "Passion, hobby",
+        "Loisirs sport",
+        "Sports, loisirs",
+        "Abonnement sport/santé",
+        "Club / association (sport, hobby, art…)",
+        "Divertissement - culture (ciné, théâtre, concerts…)"
+      ]
+    },
+    "voyages": {
+      "label": "✈️ Voyages & Transport",
+      "groupe": "quotidien",
+      "aliases": [
+        "Voyages",
+        "Taxi et VTC",
+        "Transports en commun",
+        "Avion/train/bateau...",
+        "Transports",
+        "Hébergement (hôtels, camping…)",
+        "Location de véhicules",
+        "Taxis",
+        "Transports longue distance (avions, trains…)"
+      ]
+    },
+    "cadeaux": {
+      "label": "🎁 Cadeaux",
+      "groupe": "quotidien",
+      "aliases": [
+        "Cadeaux offerts",
+        "Jouets, cadeaux",
+        "Cadeaux, dons reçus",
+        "Dons caritatifs",
+        "Avances, remboursements",
+        "dons"
+      ]
+    },
+    "auto_carburant": {
+      "label": "⛽ Carburant & Recharge",
+      "groupe": "auto",
+      "aliases": [
+        "Carburant",
+        "Recharge véhicule"
+      ]
+    },
+    "auto_parking": {
+      "label": "🅿️ Parking & Péages",
+      "groupe": "auto",
+      "aliases": [
+        "Parking, péages, PV",
+        "Parking",
+        "Parking/péages",
+        "Garage, parking privé",
+        "Péages"
+      ]
+    },
+    "auto_entretien": {
+      "label": "🔧 Entretien véhicule",
+      "groupe": "auto",
+      "aliases": [
+        "Entretien, équipements véhicules",
+        "Location véhicule"
+      ]
+    },
+    "auto_assurance": {
+      "label": "🛡️ Assurance auto",
+      "groupe": "auto",
+      "aliases": [
+        "Assurance auto",
+        "Assurances (Auto/Moto)"
+      ]
+    },
+    "auto_leasing": {
+      "label": "🚗 Leasing véhicule",
+      "groupe": "auto",
+      "aliases": [
+        "Leasing véhicule",
+        "Remb. prêt véhicule",
+        "Achat véhicule",
+        "credit_auto"
+      ]
+    },
+    "telecom": {
+      "label": "📱 Télécom & Internet",
+      "groupe": "abonnements",
+      "aliases": [
+        "Internet, TV, télécom",
+        "Abonnement internet",
+        "Abonnement mobile",
+        "Multimedia à domicile (TV, internet, téléphonie…)",
+        "Téléphonie (fixe et mobile)"
+      ]
+    },
+    "abonnements": {
+      "label": "📺 Abonnements (streaming, apps)",
+      "groupe": "abonnements",
+      "aliases": []
+    },
+    "energie": {
+      "label": "⚡ Énergie & Eau",
+      "groupe": "abonnements",
+      "aliases": [
+        "Électricité",
+        "Gaz",
+        "Eau",
+        "Electricité, gaz, chauffage",
+        "Energie (électricité, gaz, fuel, chauffage…)"
+      ]
+    },
+    "assurance_habitation": {
+      "label": "🏠 Assurance habitation",
+      "groupe": "abonnements",
+      "aliases": [
+        "Assurance emprunteur",
+        "Assurance logement",
+        "Assurances",
+        "assurance",
+        "Assurance habitation et RC"
+      ]
+    },
+    "enfants": {
+      "label": "👧 Enfants & Scolarité",
+      "groupe": "famille",
+      "aliases": [
+        "Scolarité enfants",
+        "Garde d'enfants",
+        "Activités enfants",
+        "Education, formation",
+        "Inscription, scolarité",
+        "ecole"
+      ]
+    },
+    "famille": {
+      "label": "👨‍👩‍👧‍👦 Famille",
+      "groupe": "famille",
+      "aliases": [
+        "Virement conjoint",
+        "Virement famille/amis",
+        "Virement famille",
+        "Remboursements amis",
+        "Aide ménagère"
+      ]
+    },
+    "pret_immobilier": {
+      "label": "🏠 Prêt immobilier",
+      "groupe": "immobilier",
+      "aliases": [
+        "Prêt immobilier",
+        "Remb. prêt immobilier",
+        "Copropriété",
+        "Charges de copropriété"
+      ]
+    },
+    "pret_conso": {
+      "label": "💳 Prêt à la consommation",
+      "groupe": "immobilier",
+      "aliases": [
+        "Prêt conso",
+        "Remb. prêt conso",
+        "Crédit à la consommation"
+      ]
+    },
+    "pret_auto": {
+      "label": "🚘 Prêt auto",
+      "groupe": "immobilier",
+      "aliases": []
+    },
+    "immobilier_autre": {
+      "label": "🏗️ Immobilier divers",
+      "groupe": "immobilier",
+      "aliases": [
+        "Logement, immobilier",
+        "Loyer",
+        "Frais notaire",
+        "Charges logement",
+        "copro",
+        "logement"
+      ]
+    },
+    "impots": {
+      "label": "🏛️ Impôts",
+      "groupe": "fiscal",
+      "aliases": [
+        "Impôts",
+        "Contributions sociales",
+        "Prélèvements sociaux",
+        "CSG-CRDS"
+      ]
+    },
+    "salaire": {
+      "label": "💼 Salaire & Revenus",
+      "groupe": "revenus",
+      "aliases": [
+        "Revenus",
+        "Salaire/Revenus d'activité",
+        "Revenus complémentaires",
+        "Revenus de remplacement"
+      ]
+    },
+    "notes_de_frais": {
+      "label": "🧾 Notes de frais",
+      "groupe": "revenus",
+      "aliases": [
+        "Notes de frais (+/-)",
+        "Note de frais",
+        "Remboursement frais professionnels"
+      ]
+    },
+    "dividendes": {
+      "label": "💰 Dividendes & Intérêts",
+      "groupe": "revenus",
+      "aliases": [
+        "Dividendes",
+        "Intérêts",
+        "Revenus épargne bancaire (Livret A, PEL…)"
+      ]
+    },
+    "placements": {
+      "label": "📈 Placements & Titres",
+      "groupe": "patrimoine",
+      "aliases": [
+        "Achats, ventes de titres",
+        "Opérations sur titres",
+        "Assurance vie",
+        "Placement épargne"
+      ]
+    },
+    "frais_gestion": {
+      "label": "💳 Frais de gestion",
+      "groupe": "patrimoine",
+      "aliases": [
+        "Frais gestion titres",
+        "Frais gestion patrimoine",
+        "Conseil financier",
+        "Services professionnels"
+      ]
+    },
+    "frais_bancaires": {
+      "label": "🏦 Frais bancaires",
+      "groupe": "bancaire",
+      "aliases": [
+        "Frais bancaires",
+        "Incidents bancaires",
+        "Frais bancaires et de gestion (dont agios)",
+        "Remboursement de frais bancaires"
+      ]
+    },
+    "epargne": {
+      "label": "🐖 Épargne",
+      "groupe": "bancaire",
+      "aliases": [
+        "Virements d'épargne",
+        "Épargne PEL",
+        "Epargne financière (retraite, prévoyance, PEA, assurance-vie…)"
+      ]
+    },
+    "virements_internes": {
+      "label": "🔄 Virements internes",
+      "groupe": "bancaire",
+      "aliases": [
+        "Virements internes",
+        "virement",
+        "Virements reçus de comptes à comptes",
+        "Virements émis de comptes à comptes"
+      ]
+    },
+    "especes": {
+      "label": "💵 Espèces",
+      "groupe": "bancaire",
+      "aliases": [
+        "Retraits d'espèces"
+      ]
+    },
+    "non_categorise": {
+      "label": "❓ Non catégorisé",
+      "groupe": "autre",
+      "aliases": [
+        "Virements à catégoriser",
+        "À catégoriser",
+        "Tabac/Presse",
+        "Services"
+      ]
+    }
+  },
+  "groupes": {
+    "quotidien": "🛒 Dépenses quotidiennes",
+    "auto": "🚗 Automobile",
+    "abonnements": "📺 Abonnements & Charges",
+    "famille": "👨‍👩‍👧‍👦 Famille",
+    "immobilier": "🏠 Immobilier & Prêts",
+    "fiscal": "🏛️ Fiscal",
+    "revenus": "💰 Revenus",
+    "patrimoine": "📈 Patrimoine",
+    "bancaire": "🏦 Bancaire",
+    "autre": "❓ Autre"
+  }
+}
