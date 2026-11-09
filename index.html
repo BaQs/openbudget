@@ -178,6 +178,20 @@
     .tabbar a.on{color:var(--accent-ink)}
   }
   @media (max-width:460px){ .kpis{grid-template-columns:1fr 1fr} }
+
+  /* Badge nav + bandeau + écran À catégoriser */
+  .navbadge{margin-left:auto;background:var(--accent);color:#1a1205;border-radius:999px;font-size:11px;font-weight:800;padding:1px 7px;display:none}
+  .navbadge.show{display:inline-block}
+  .alert{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--warn);border-left:4px solid var(--warn);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:14px}
+  .alert .t{flex:1;font-weight:600}
+  .alert button{background:var(--warn);color:#1a1205;border-radius:10px;padding:7px 14px;font-weight:700}
+  .triage{display:grid;grid-template-columns:1fr 210px auto auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+  .triage:first-child{border-top:0}
+  .triage .tg-lbl{font-weight:600}
+  .triage .tg-meta{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .triage .tg-rule{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:5px;white-space:nowrap}
+  .triage select{width:100%}
+  @media(max-width:680px){ .triage{grid-template-columns:1fr auto} .triage .tg-main,.triage select{grid-column:1/-1} }
 </style>
 </head>
 <body>
@@ -187,6 +201,7 @@
     <nav class="nav">
       <a data-s="dash" class="on"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="10" rx="1.5"/><rect x="13" y="3" width="8" height="6" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/><rect x="3" y="17" width="8" height="4" rx="1.5"/></svg>Tableau de bord</a>
       <a data-s="ops"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Opérations</a>
+      <a data-s="triage"><svg viewBox="0 0 24 24"><path d="M12 3 21 19H3z"/><path d="M12 10v4M12 16.5v.5"/></svg>À catégoriser<span class="navbadge" id="nav-uncat"></span></a>
       <a data-s="bud"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 12V5M12 12l5 3"/></svg>Budgets</a>
       <a data-s="abo"><svg viewBox="0 0 24 24"><path d="M4 8a8 8 0 0 1 14-3M20 5v4h-4M20 16a8 8 0 0 1-14 3M4 19v-4h4"/></svg>Abonnements</a>
       <a data-s="rec"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Récurrences</a>
@@ -203,6 +218,7 @@
         <h1>Tableau de bord</h1>
         <select id="dash-month" onchange="loadDashMonth()"></select>
       </div>
+      <div id="dash-uncat"></div>
       <div class="kpis" id="dash-kpis"></div>
       <div class="cols">
         <div class="panel">
@@ -226,7 +242,13 @@
           <div id="dash-accs"></div>
         </div>
       </div>
-      <div id="synclog"></div>
+    </div>
+
+    <!-- À CATÉGORISER -->
+    <div class="page screen" id="s-triage">
+      <div class="phead"><h1>À catégoriser</h1><span class="sub" id="triage-sub"></span></div>
+      <p class="muted" style="margin:-4px 0 14px">Classe les opérations non reconnues, des plus grosses aux plus petites. Garde « règle » coché pour que les prochaines du même émetteur soient classées toutes seules.</p>
+      <div id="triage-body"></div>
     </div>
 
     <!-- OPÉRATIONS -->
@@ -309,6 +331,8 @@
       <p class="muted" style="margin-top:0">Lier un compte (Control Panel Enable) ouvre un périmètre permanent ; <b>autoriser</b> crée un consentement DSP2 (~180&nbsp;j). La synchro ne redemande rien entre-temps.</p>
       <div id="enable-body"></div>
     </div>
+
+    <div id="synclog"></div>
   </main>
 </div>
 
@@ -340,11 +364,14 @@ function go(s){
   document.querySelectorAll('.nav a,.tabbar a').forEach(a=>a.classList.toggle('on', a.dataset.s===s));
   window.scrollTo(0,0);
   if(s==='ops') loadOps(true);
+  else if(s==='triage') loadTriage();
   else if(s==='bud') loadBudgets();
   else if(s==='abo') loadAbos();
   else if(s==='rec') loadRec();
   else if(s==='acc'){ loadAccount(); loadEnable(); }
 }
+function currentYM(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
+function defaultMonth(){ const ms=(OV&&OV.months)||[]; return (ms[0]===currentYM() && ms[1]) ? ms[1] : (ms[0]||''); }
 document.addEventListener('click',e=>{const a=e.target.closest('[data-s]');if(!a)return;e.preventDefault();go(a.dataset.s);});
 
 /* ---------- Overview + selects ---------- */
@@ -356,11 +383,21 @@ function fillSelect(el, items, firstLabel){
 async function loadOverview(){
   OV = await j('/api/overview');
   fillSelect($('f-account'), OV.op_accounts.map(a=>({v:a.key,t:a.label})), 'Tous les comptes');
-  fillSelect($('f-month'), OV.months.map(m=>({v:m,t:m})), 'Tous les mois');
+  const cur=currentYM();
+  const monthOpts = OV.months.map(m=>({v:m, t:(m===cur?m+' (en cours)':m)}));
+  fillSelect($('f-month'), monthOpts, 'Tous les mois');
   fillSelect($('f-cat'), [{v:'__none__',t:'⚠️ Non catégorisées'}].concat(OV.categories.map(c=>({v:c,t:c}))), 'Toutes catégories');
   fillSelect($('f-pm'), (OV.payment_methods||[]).map(p=>({v:p,t:p})), 'Tout moyen');
-  fillSelect($('dash-month'), OV.months.map(m=>({v:m,t:m})), 'Ce mois');
-  const bm=$('b-month'); fillSelect(bm, OV.months.map(m=>({v:m,t:m})), 'Ce mois'); if(OV.months[0]) bm.value=OV.months[0];
+  fillSelect($('dash-month'), monthOpts, 'Ce mois');
+  fillSelect($('b-month'), monthOpts, 'Ce mois');
+  const dm=defaultMonth(); if(dm){ $('dash-month').value=dm; $('b-month').value=dm; }
+  refreshUncatBadge();
+}
+async function refreshUncatBadge(){
+  try{ const d=await j('/api/operations?categorie=__none__&offset=0&limit=1'); setUncatBadge(d.total); }catch(e){}
+}
+function setUncatBadge(n){
+  const b=$('nav-uncat'); if(b){ b.textContent=n?String(n):''; b.classList.toggle('show',!!n); }
 }
 
 /* ---------- Charts ---------- */
@@ -407,7 +444,10 @@ function sparkline(points){
 
 /* ---------- Dashboard ---------- */
 async function loadDash(){
-  const month = $('dash-month').value || (OV.months[0]||'');
+  const month = $('dash-month').value || defaultMonth();
+  const uc = await j('/api/operations?categorie=__none__&offset=0&limit=1');
+  setUncatBadge(uc.total);
+  $('dash-uncat').innerHTML = uc.total ? `<div class="alert"><div class="t">${uc.total} opération${uc.total>1?'s':''} non reconnues</div><button data-s="triage">Les catégoriser</button></div>` : '';
   const [mo, bs] = await Promise.all([ j('/api/monthly?n=12'), j('/api/budget-status?month='+encodeURIComponent(month)) ]);
   $('dash-kpis').innerHTML =
     kpi('Solde courant', eur(OV.total_courant)) +
@@ -643,7 +683,67 @@ async function ebSync(sid,key){
 }
 
 /* ---------- Sync global ---------- */
-function showLog(lines){ const log=$('synclog'); if(!log) return; log.style.display='block'; log.textContent=(lines||[]).join('\n'); if(curScreen!=='dash') go('dash'); }
+function showLog(lines){ const log=$('synclog'); if(!log) return; log.style.display='block'; log.textContent=(lines||[]).join('\n'); log.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+
+/* ---------- À catégoriser ---------- */
+let UNCAT=[], VALIDSLUGS=new Set();
+function buildSlugs(){ VALIDSLUGS=new Set(); for(const g of (CATREF.groups||[])) for(const it of (g.items||[])) VALIDSLUGS.add(it.slug); }
+function guessCat(label){
+  const s=(label||'').toLowerCase();
+  const tries=[
+    [/imp[oô]t|dgfip|dgf\.?i\.?p|tr[eé]sor|finances publiques/,'impots'],
+    [/[ée]ch[ée]ance pr[eê]t|ech\.? pr[eê]t|pr[eê]t n[°o]|remb.*pr[eê]t/,'pret_immobilier'],
+    [/virement|^vir |vir mr|vir mme|transf|revolut/,'virements_internes'],
+    [/assurance/,'assurance_habitation'],
+    [/edf|engie|\bgaz\b|[ée]lectric|[ée]nergie|veolia|\beau\b/,'energie'],
+    [/sncf|uber|\bessence\b|total ?[ée]nerg|station|carburant/,'auto_carburant'],
+    [/[ée]cole|scolar|cr[eè]che|\bgarde\b/,'enfants'],
+    [/pharmaci|m[ée]decin|docteur|h[oô]pital|labo/,'sante'],
+    [/lidl|carrefour|intermarch|auchan|leclerc|monoprix|franprix|super ?u/,'alimentation'],
+    [/restaurant|resto|brasserie|pizz|mcdo|burger/,'restauration'],
+  ];
+  for(const [re,slug] of tries){ if(re.test(s) && VALIDSLUGS.has(slug)) return slug; }
+  return '';
+}
+async function loadTriage(){
+  const d=await j('/api/operations?categorie=__none__&offset=0&limit=1000');
+  const groups={};
+  for(const r of d.rows){
+    const pat=guessPattern(r.label)||'(autre)';
+    const g=groups[pat]||(groups[pat]={pattern:pat,label:r.label_clean||r.label,ids:[],total:0,count:0,acc:r.account_label||''});
+    g.ids.push(r.id); g.total+=r.amount; g.count++;
+  }
+  UNCAT=Object.values(groups).sort((a,b)=>Math.abs(b.total)-Math.abs(a.total));
+  setUncatBadge(d.total);
+  $('triage-sub').textContent = d.total ? `${d.total} opération${d.total>1?'s':''}, ${UNCAT.length} émetteur${UNCAT.length>1?'s':''}` : 'tout est classé';
+  renderTriage();
+}
+function renderTriage(){
+  if(!UNCAT.length){ $('triage-body').innerHTML='<div class="panel"><p class="muted" style="margin:0">Rien à catégoriser. Reviens après une synchronisation.</p></div>'; return; }
+  $('triage-body').innerHTML='<div class="panel">'+UNCAT.map((g,i)=>`
+    <div class="triage" id="tg-${i}">
+      <div class="tg-main"><div class="tg-lbl">${escapeHtml(g.label)}</div>
+        <div class="tg-meta">${g.count} opération${g.count>1?'s':''} · <span class="${g.total<0?'neg':'pos'}">${eurc(g.total)}</span>${g.acc?` · ${escapeHtml(g.acc)}`:''}</div></div>
+      <select id="tgc-${i}">${catOptions(guessCat(g.label))}</select>
+      <label class="tg-rule"><input type="checkbox" id="tgr-${i}" checked> règle</label>
+      <button class="btn" onclick="applyTriage(${i})">Classer</button>
+    </div>`).join('')+'</div>';
+}
+async function applyTriage(i){
+  const g=UNCAT[i]; const cat=$('tgc-'+i).value;
+  if(!cat){ $('tgc-'+i).focus(); return; }
+  const rule=$('tgr-'+i).checked, btn=$('tg-'+i).querySelector('button');
+  btn.disabled=true; btn.textContent='…';
+  const body={id:g.ids[0], categorie:cat};
+  if(rule && g.pattern && g.pattern!=='(autre)'){ body.make_rule=true; body.pattern=g.pattern; }
+  const r=await j('/api/recategorize',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(r&&r.ok){
+    if(!body.make_rule){
+      for(const id of g.ids.slice(1)){ await j('/api/recategorize',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,categorie:cat})}); }
+    }
+    await loadOverview(); await loadTriage();
+  } else { btn.disabled=false; btn.textContent='Classer'; showLog(['Erreur : '+((r&&r.error)||'?')]); }
+}
 async function doSync(){
   const btn=$('syncbtn'); btn.disabled=true; const old=btn.innerHTML; btn.textContent='Synchronisation…';
   const log=$('synclog'); log.style.display='block'; log.textContent='En cours…';
@@ -656,7 +756,7 @@ async function doSync(){
 }
 
 /* ---------- Init ---------- */
-(async function init(){ await loadCatRef(); await loadOverview(); await loadDash(); })();
+(async function init(){ await loadCatRef(); buildSlugs(); await loadOverview(); await loadDash(); })();
 </script>
 </body>
 </html>
