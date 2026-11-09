@@ -895,8 +895,136 @@ def api_enable_sync(body):
     return {'ok': ok, 'log': log}
 
 
+# ---------------------------------------------------------------- tri des non catégorisées
+
+def _merchant_key(label):
+    """Clé marchand : préfixe carte/date/virement retiré puis 3 premiers mots. Reste une
+    SOUS-CHAÎNE du libellé brut, donc utilisable telle quelle comme motif de règle."""
+    s = (label or '').upper()
+    s = re.sub(r'^CARTE\s+X?\d+\s+\d{2}/\d{2}\s+', '', s)
+    s = re.sub(r'^PRELEVEMENT EUROPEEN\s+\d+\s+DE:\s*', '', s)
+    s = re.sub(r'^PRLV SEPA\s+', '', s)
+    s = re.sub(r'^\d+\s+VIR\s+\S+\s+', '', s)
+    s = re.sub(r'\s+\d[\d .,]*\s*EUR\b.*', '', s)
+    s = re.sub(r'\s+(COMMERCE ELECTRONIQUE|CB\*?\d+).*', '', s)
+    return ' '.join(s.split()[:3]).strip()
+
+
+_TRIAGE_KEYWORDS = [
+    (r'IMP[OÔ]T|DGFIP|DGF\.?I\.?P|TR[EÉ]SOR|FINANCES PUBLIQUES', 'impots'),
+    (r'ORANGE|FREE MOBILE|\bFREE\b|\bSFR\b|BOUYGUES|SOSH|RED BY', 'telecom'),
+    (r'\bEDF\b|ENGIE|TOTAL ?[EÉ]NERG|VEOLIA|\bEAU[X]?\b|SUEZ|GRDF', 'energie'),
+    (r'RESTAUR|RESTO|BRASSERIE|PIZZ|MCDO|BURGER|\bPAUL\b|KEBAB|SUSHI|BISTRO|\bCAFE\b', 'restauration'),
+    (r'LIDL|CARREFOUR|AUCHAN|LECLERC|MONOPRIX|FRANPRIX|SUPER ?U|INTERMARCHE|CASINO|EPICERI|BOULANGER', 'alimentation'),
+    (r'PHARMACI|M[EÉ]DECIN|DOCTEUR|H[OÔ]PITAL|\bLABO|DENTAIRE|OPTIC', 'sante'),
+    (r'SNCF|\bUBER\b|NAVIGO|\bMETRO\b|\bTAXI|BLABLA|FLIXBUS|A[EÉ]ROPORT|AIRPORT|BOOKING|\bHOTEL|AIRBNB', 'voyages'),
+    (r'IKEA|LEROY MERLIN|CASTORAMA|\bBRICO|JARDIN', 'vie_courante'),
+    (r'ASSURANCE', 'assurance_habitation'),
+    (r'[EÉ]COLE|CR[EÈ]CHE|SCOLAR|PERISCOL', 'enfants'),
+    (r'AMAZON|\bFNAC\b|DARTY|\bZARA\b|DECATHLON|PRINTEMPS|VINTED|ZALANDO|TICKETMASTER', 'shopping'),
+    (r'ESSENCE|CARBURANT|STATION|\bBP\b|\bSHELL\b|\bESSO\b|\bAVIA\b', 'auto_carburant'),
+    (r'PARKING|P[EÉ]AGE|INDIGO|VINCI PARK', 'auto_parking'),
+]
+
+
+def _triage_suggest(key, label, model, valid):
+    """Suggestion pour un marchand : d'abord l'historique de l'utilisateur, sinon un mot-clé."""
+    hist = model.get(key)
+    if hist:
+        best, cnt = max(hist.items(), key=lambda kv: kv[1])
+        seen = sum(hist.values())
+        share = cnt / seen
+        if best in valid:
+            return best, ('haute' if (seen >= 2 and share >= 0.6) else 'moyenne'), seen, round(share, 2)
+    up = (label + ' ' + key).upper()
+    for pat, slug in _TRIAGE_KEYWORDS:
+        if slug in valid and re.search(pat, up):
+            return slug, 'moyenne', 0, 0.0
+    return '', '', 0, 0.0
+
+
+def _is_uncat(o):
+    return (o.get('categorie') or '') in ('', '(sans)', 'non_categorise')
+
+
+def api_triage():
+    """Opérations non reconnues, groupées par marchand, avec une catégorie suggérée (historique
+    de l'utilisateur pour le même marchand, sinon mot-clé). Lecture seule."""
+    ref = load_json(REFERENTIEL_FILE, {})
+    valid = set((ref.get('categories') or {}).keys())
+    reg = accounts_registry()
+    ops = load_ops()
+    model = defaultdict(lambda: defaultdict(int))
+    for o in ops:
+        c = o.get('categorie')
+        if c and c not in ('(sans)', 'non_categorise'):
+            model[_merchant_key(o.get('label', ''))][c] += 1
+    groups = {}
+    for o in ops:
+        if not _is_uncat(o):
+            continue
+        key = _merchant_key(o.get('label', '')) or '(autre)'
+        g = groups.get(key)
+        if not g:
+            g = groups[key] = {'pattern': key, 'label': _clean_label(o.get('label', '')),
+                               'ids': [], 'total': 0.0, 'count': 0,
+                               'account': label_for(o.get('account'), reg)}
+        g['ids'].append(_op_id(o))
+        g['total'] += o.get('amount', 0)
+        g['count'] += 1
+    out = []
+    for key, g in groups.items():
+        sugg, conf, seen, share = _triage_suggest(key, g['label'], model, valid)
+        g['total'] = round(g['total'], 2)
+        out.append({**g, 'suggestion': sugg, 'confidence': conf, 'seen': seen, 'share': share})
+    out.sort(key=lambda x: abs(x['total']), reverse=True)
+    return {'total': sum(x['count'] for x in out), 'groups': out,
+            'n_haute': sum(1 for x in out if x['confidence'] == 'haute'),
+            'n_sugg': sum(1 for x in out if x['suggestion'])}
+
+
+def api_triage_apply(body):
+    """Applique plusieurs catégorisations en UNE passe (une seule réécriture du fichier).
+    assignment = {categorie, + soit ids[] (bornes exactes), soit pattern+make_rule}."""
+    assigns = (body or {}).get('assignments') or []
+    if not assigns:
+        return {'ok': False, 'error': 'rien à appliquer'}
+    ops = _load_ops_raw()
+    idmap = {}
+    for o in ops:
+        idmap.setdefault(_op_id(o), o)
+    changed, rules = 0, 0
+    for a in assigns:
+        cat = (a.get('categorie') or '').strip()
+        if not cat:
+            continue
+        if a.get('make_rule') and a.get('pattern'):
+            pu = a['pattern'].upper()
+            for o in ops:
+                if pu in (o.get('label', '') or '').upper() and o.get('categorie') != cat:
+                    o['categorie'] = cat
+                    changed += 1
+            _add_rule(a['pattern'], cat)
+            rules += 1
+        else:
+            for oid in (a.get('ids') or []):
+                o = idmap.get(oid)
+                if o is not None and o.get('categorie') != cat:
+                    o['categorie'] = cat
+                    changed += 1
+    if changed or rules:
+        try:
+            import shutil
+            shutil.copy2(OPERATIONS_FILE, _RECAT_BACKUP)
+        except OSError:
+            pass
+        _save_ops_raw(ops)
+    return {'ok': True, 'changed': changed, 'rules': rules}
+
+
 ROUTES_GET = {
     '/api/overview': lambda qs: api_overview(),
+    '/api/triage': lambda qs: api_triage(),
     '/api/operations': api_operations,
     '/api/categories': api_categories,
     '/api/recurrences': lambda qs: api_recurrences(),
@@ -929,6 +1057,7 @@ def api_account_password(body):
 
 
 ROUTES_POST = {
+    '/api/triage-apply': api_triage_apply,
     '/api/enable/reauth': api_enable_reauth,
     '/api/enable/complete': api_enable_complete,
     '/api/enable/sync': api_enable_sync,
