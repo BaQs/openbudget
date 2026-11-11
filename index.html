@@ -371,7 +371,7 @@ function bankColor(b){ const s=bankSlug(b)||(b||''); let h=0; for(let i=0;i<s.le
 function bankIcon(bank){
   const slug=bankSlug(bank), ini=bankInitials(bank);
   return `<span class="bankico" title="${escapeHtml(bank||'')}"><span class="bi-fb" style="background:${bankColor(bank)}">${escapeHtml(ini)}</span>`
-    + (slug?`<img src="/assets/banks/${slug}.png" alt="" loading="lazy" onload="this.previousElementSibling.style.opacity=0" onerror="this.remove()">`:'')
+    + (slug?`<img src="/assets/banks/${slug}.${slug==='sg'?'svg':'png'}" alt="" loading="lazy" onload="this.previousElementSibling.style.opacity=0" onerror="this.remove()">`:'')
     + `</span>`;
 }
 const $ = id => document.getElementById(id);
