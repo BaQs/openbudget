@@ -1094,10 +1094,75 @@ def api_rules_action(body):
     return {'ok': False, 'error': 'action inconnue'}
 
 
+# ---------------------------------------------------------------- structures (biens / voitures)
+
+STRUCTURES_FILE = config.STRUCTURES_FILE
+# Flux non consommés : exclus du coût réel d'une structure (virements d'alimentation, achat ponctuel…).
+_STRUCT_EXCL = {'virements_internes', 'especes', 'epargne', 'placements', 'auto_achat'}
+
+
+def _load_structures():
+    return (load_json(STRUCTURES_FILE, {}) or {}).get('structures', []) or []
+
+
+def _op_structure(o, structs):
+    """Première structure qui matche : categorie_originale (orig), libellé (label_pat) ou catégorie (cats)."""
+    oc = (o.get('categorie_originale') or '').lower()
+    labu = (o.get('label') or '').upper()
+    cat = o.get('categorie') or ''
+    for s in structs:
+        if any(m.lower() in oc for m in s.get('orig', [])):
+            return s['key']
+        if any(m.upper() in labu for m in s.get('label_pat', [])):
+            return s['key']
+        if cat in s.get('cats', []):
+            return s['key']
+    return None
+
+
+def api_structures(qs):
+    """Coût par bien/voiture. Pour le mois demandé : total + ventilation par catégorie ;
+    plus un « typique » = moyenne des mois actifs sur les 6 derniers mois."""
+    structs = _load_structures()
+    month = (qs.get('month', [''])[0] or '').strip()
+    ops = load_ops()
+    permonth = defaultdict(lambda: defaultdict(float))
+    brk = defaultdict(lambda: defaultdict(float))
+    counts = defaultdict(int)
+    for o in ops:
+        if (o.get('categorie') or '') in _STRUCT_EXCL:
+            continue
+        k = _op_structure(o, structs)
+        if not k:
+            continue
+        m = (o.get('date') or '')[:7]
+        amt = o.get('amount', 0)
+        permonth[k][m] += amt
+        counts[k] += 1
+        if month and m == month:
+            brk[k][o.get('categorie') or '(sans)'] += amt
+    allmonths = sorted({m for d in permonth.values() for m in d})
+    recent = allmonths[-6:] if allmonths else []
+    out = []
+    for s in structs:
+        k = s['key']
+        mt = round(permonth[k].get(month, 0.0), 2) if month else None
+        vals = [permonth[k].get(m, 0.0) for m in recent if abs(permonth[k].get(m, 0.0)) > 1]
+        typ = round(sum(vals) / len(vals), 2) if vals else 0.0
+        items = sorted(({'categorie': c, 'montant': round(v, 2)} for c, v in brk[k].items()),
+                       key=lambda x: x['montant'])
+        out.append({'key': k, 'label': s['label'], 'type': s.get('type'),
+                    'month_total': mt, 'typique': typ, 'count': counts[k], 'breakdown': items})
+    return {'month': month, 'structures': out,
+            'total_month': round(sum((x['month_total'] or 0) for x in out), 2),
+            'total_typique': round(sum(x['typique'] for x in out), 2)}
+
+
 ROUTES_GET = {
     '/api/overview': lambda qs: api_overview(),
     '/api/triage': lambda qs: api_triage(),
     '/api/rules': lambda qs: api_rules(),
+    '/api/structures': api_structures,
     '/api/operations': api_operations,
     '/api/categories': api_categories,
     '/api/recurrences': lambda qs: api_recurrences(),

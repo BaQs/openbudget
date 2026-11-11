@@ -18,6 +18,7 @@ REGLES_FILE = os.path.join(DATA_DIR, 'regles_auto.json')
 BUDGET_FILE = os.path.join(DATA_DIR, 'budget.json')
 MERCHANT_ALIASES_FILE = os.path.join(DATA_DIR, 'merchant_aliases.json')
 ACCOUNT_MAPS_FILE = os.path.join(DATA_DIR, 'account_maps.json')
+STRUCTURES_FILE = os.path.join(DATA_DIR, 'structures.json')
 
 ENABLE_DIR = os.path.join(HOME, 'enable-banking')
 AUTH_FILE = os.path.join(HOME, 'webapp.json')

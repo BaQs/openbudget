@@ -1,0 +1,15 @@
+{
+  "_description": "Structures = centres de coût par bien/voiture. Une opération appartient à une structure si sa categorie_originale contient un marqueur `orig`, son libellé un motif `label_pat`, ou sa catégorie est dans `cats`. Première structure qui matche. (Données de démonstration — adaptez à vos biens.)",
+  "structures": [
+    {
+      "key": "logement", "label": "🏠 Logement", "type": "bien",
+      "orig": [], "label_pat": [],
+      "cats": ["immobilier_autre", "energie", "assurance_habitation", "telecom", "pret_immobilier"]
+    },
+    {
+      "key": "voiture", "label": "🚗 Voiture", "type": "voiture",
+      "orig": [], "label_pat": [],
+      "cats": ["auto_carburant", "auto_assurance", "auto_entretien", "auto_parking", "pret_auto"]
+    }
+  ]
+}
