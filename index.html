@@ -208,6 +208,7 @@
       <a data-s="bud"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 12V5M12 12l5 3"/></svg>Budgets</a>
       <a data-s="abo"><svg viewBox="0 0 24 24"><path d="M4 8a8 8 0 0 1 14-3M20 5v4h-4M20 16a8 8 0 0 1-14 3M4 19v-4h4"/></svg>Abonnements</a>
       <a data-s="rec"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Récurrences</a>
+      <a data-s="rules"><svg viewBox="0 0 24 24"><path d="M4 7h11M4 12h16M4 17h8"/><circle cx="18" cy="7" r="2"/><circle cx="15" cy="17" r="2"/></svg>Règles</a>
     </nav>
     <div class="sp"></div>
     <button class="sync" id="syncbtn" onclick="doSync()"><svg viewBox="0 0 24 24"><path d="M4 8a8 8 0 0 1 14-3M20 5v4h-4"/><path d="M20 16a8 8 0 0 1-14 3M4 19v-4h4"/></svg>Synchroniser</button>
@@ -318,6 +319,15 @@
       </div>
     </div>
 
+    <!-- RÈGLES -->
+    <div class="page screen" id="s-rules">
+      <div class="phead"><h1>Règles de catégorisation</h1><span class="sub" id="rules-sub"></span></div>
+      <p class="muted" style="margin:-4px 0 14px">Chaque règle classe automatiquement les opérations dont le libellé contient le motif. « Appliquer » la rejoue sur tout l'historique ; « supprimer » ne touche pas aux opérations déjà classées.</p>
+      <div class="panel" style="padding:6px 14px"><div class="tscroll"><table><thead><tr>
+        <th>Motif</th><th>Catégorie</th><th class="amt">Opérations</th><th></th>
+      </tr></thead><tbody id="rules-body"></tbody></table></div></div>
+    </div>
+
     <!-- MON COMPTE -->
     <div class="page screen" id="s-acc">
       <div class="phead"><h1>Mon compte</h1></div>
@@ -371,6 +381,7 @@ function go(s){
   else if(s==='bud') loadBudgets();
   else if(s==='abo') loadAbos();
   else if(s==='rec') loadRec();
+  else if(s==='rules') loadRules();
   else if(s==='acc'){ loadAccount(); loadEnable(); }
 }
 function currentYM(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
@@ -613,6 +624,52 @@ async function loadAbos(){
         <td class="amt d">${eurc(a.amount)}</td></tr>`).join('')}</tbody></table></div></div>`;
   };
   $('abos-body').innerHTML = (d.order||[]).map(([key,label])=>sec(label, d.groups[key])).join('') || '<p class="muted">Aucune charge récurrente détectée.</p>';
+}
+
+/* ---------- Règles ---------- */
+let RULES=[];
+async function loadRules(){
+  const d=await j('/api/rules');
+  RULES=d.rules||[];
+  $('rules-sub').textContent = `${d.total} règle${d.total>1?'s':''}`;
+  renderRules();
+}
+function renderRules(){
+  if(!RULES.length){ $('rules-body').innerHTML='<tr><td colspan="4" class="muted">Aucune règle. Elles se créent quand on classe une opération avec « règle » coché.</td></tr>'; return; }
+  $('rules-body').innerHTML=RULES.map((r,i)=>`
+    <tr id="rule-${i}">
+      <td class="lbl"><code>${escapeHtml(r.pattern)}</code></td>
+      <td class="catcell" onclick="editRule(${i})"><span class="tag">${escapeHtml(r.categorie)}</span></td>
+      <td class="amt muted">${r.count}</td>
+      <td class="amt" style="white-space:nowrap">
+        <button class="btn ghost" style="padding:5px 10px;font-size:12px" onclick="applyRule(${i})">Appliquer</button>
+        <button class="btn ghost" style="padding:5px 10px;font-size:12px" onclick="deleteRule(${i})">Supprimer</button>
+      </td>
+    </tr>`).join('');
+}
+function editRule(i){
+  const td=$('rule-'+i).querySelector('.catcell');
+  if(td.querySelector('select')) return;
+  td.onclick=null;
+  td.innerHTML=`<select id="rsel-${i}">${catOptions(RULES[i].categorie)}</select>
+    <button class="btn" style="padding:4px 10px;font-size:12px;margin-left:4px" onclick="saveRule(${i})">OK</button>`;
+}
+async function saveRule(i){
+  const cat=$('rsel-'+i).value; if(!cat){ return; }
+  const r=await j('/api/rules/action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'update',pattern:RULES[i].pattern,categorie:cat})});
+  if(r&&r.ok){ await loadRules(); showLog([`Règle « ${RULES[i]?RULES[i].pattern:''} » mise à jour. Clique « Appliquer » pour reclasser l'historique.`]); }
+  else showLog(['Erreur : '+((r&&r.error)||'?')]);
+}
+async function applyRule(i){
+  const r=await j('/api/rules/action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'apply',pattern:RULES[i].pattern})});
+  if(r&&r.ok){ await loadOverview(); await loadRules(); showLog([`${r.changed} opération(s) reclassée(s).`]); }
+  else showLog(['Erreur : '+((r&&r.error)||'?')]);
+}
+async function deleteRule(i){
+  const p=RULES[i].pattern;
+  const r=await j('/api/rules/action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'delete',pattern:p})});
+  if(r&&r.ok){ await loadRules(); showLog([`Règle « ${p} » supprimée (opérations déjà classées inchangées).`]); }
+  else showLog(['Erreur : '+((r&&r.error)||'?')]);
 }
 
 /* ---------- Récurrences ---------- */

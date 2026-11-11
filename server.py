@@ -1022,9 +1022,66 @@ def api_triage_apply(body):
     return {'ok': True, 'changed': changed, 'rules': rules}
 
 
+# ---------------------------------------------------------------- gestion des règles
+
+def api_rules():
+    """Liste les règles d'auto-catégorisation, avec le nombre d'opérations que chacune touche."""
+    data = load_json(REGLES_FILE, {'rules': []})
+    rules = data.get('rules', []) or []
+    ops = load_ops()
+    out = []
+    for r in rules:
+        pat = r.get('pattern') or ''
+        pu = pat.upper()
+        c = sum(1 for o in ops if pu and pu in (o.get('label', '') or '').upper()) if pu else 0
+        out.append({'pattern': pat, 'categorie': r.get('categorie', ''),
+                    'source': r.get('source', ''), 'count': c})
+    out.sort(key=lambda x: -x['count'])
+    return {'rules': out, 'updated': data.get('_updated'), 'total': len(out)}
+
+
+def api_rules_action(body):
+    """Actions sur une règle : delete (supprime), update (change la catégorie),
+    apply (reclasse tout l'historique qui matche)."""
+    action = (body or {}).get('action')
+    pattern = ((body or {}).get('pattern') or '').strip()
+    if not pattern:
+        return {'ok': False, 'error': 'motif manquant'}
+    data = load_json(REGLES_FILE, {'rules': []})
+    rules = data.setdefault('rules', [])
+    pu = pattern.upper()
+    if action == 'delete':
+        data['rules'] = [r for r in rules if (r.get('pattern') or '').upper() != pu]
+        data['_updated'] = dt.datetime.now().isoformat()
+        with open(REGLES_FILE, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        return {'ok': True, 'deleted': pattern}
+    if action == 'update':
+        cat = ((body or {}).get('categorie') or '').strip()
+        if not cat:
+            return {'ok': False, 'error': 'catégorie manquante'}
+        for r in rules:
+            if (r.get('pattern') or '').upper() == pu:
+                r['categorie'] = cat
+                break
+        else:
+            return {'ok': False, 'error': 'règle introuvable'}
+        data['_updated'] = dt.datetime.now().isoformat()
+        with open(REGLES_FILE, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        return {'ok': True}
+    if action == 'apply':
+        cat = next((r.get('categorie') for r in rules if (r.get('pattern') or '').upper() == pu), None)
+        if not cat:
+            return {'ok': False, 'error': 'règle introuvable'}
+        return api_triage_apply({'assignments': [{'pattern': pattern, 'categorie': cat, 'make_rule': True}]})
+    return {'ok': False, 'error': 'action inconnue'}
+
+
 ROUTES_GET = {
     '/api/overview': lambda qs: api_overview(),
     '/api/triage': lambda qs: api_triage(),
+    '/api/rules': lambda qs: api_rules(),
     '/api/operations': api_operations,
     '/api/categories': api_categories,
     '/api/recurrences': lambda qs: api_recurrences(),
@@ -1058,6 +1115,7 @@ def api_account_password(body):
 
 ROUTES_POST = {
     '/api/triage-apply': api_triage_apply,
+    '/api/rules/action': api_rules_action,
     '/api/enable/reauth': api_enable_reauth,
     '/api/enable/complete': api_enable_complete,
     '/api/enable/sync': api_enable_sync,
