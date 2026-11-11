@@ -781,8 +781,8 @@ async function applyTriage(i){
   if(!cat){ $('tgc-'+i).focus(); return; }
   const rule=$('tgr-'+i).checked, btn=$('tg-'+i).querySelector('button');
   btn.disabled=true; btn.textContent='…';
-  const a = (rule && g.pattern && g.pattern!=='(autre)') ? {categorie:cat, pattern:g.pattern, make_rule:true}
-                                                         : {categorie:cat, ids:g.ids};
+  const a = {categorie:cat, ids:g.ids};
+  if(rule && g.pattern && g.pattern!=='(autre)'){ a.make_rule=true; a.pattern=g.pattern; }
   const r=await j('/api/triage-apply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({assignments:[a]})});
   if(r&&r.ok){ await loadOverview(); await loadTriage(); }
   else { btn.disabled=false; btn.textContent='Classer'; showLog(['Erreur : '+((r&&r.error)||'?')]); }
@@ -795,8 +795,9 @@ async function applyAll(mode){
     if(!g.suggestion) continue;
     if(mode==='haute' && g.confidence!=='haute') continue;
     const safeRule = g.pattern && g.pattern!=='(autre)' && (g.seen===0 || g.share>=0.95);
-    assigns.push(safeRule ? {categorie:g.suggestion, pattern:g.pattern, make_rule:true}
-                          : {categorie:g.suggestion, ids:g.ids});
+    const a = {categorie:g.suggestion, ids:g.ids};
+    if(safeRule){ a.make_rule=true; a.pattern=g.pattern; }
+    assigns.push(a);
   }
   if(!assigns.length){ showLog(['Aucune suggestion à appliquer.']); return; }
   document.querySelectorAll('.triage-actions button').forEach(b=>{b.disabled=true;});

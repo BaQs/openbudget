@@ -898,16 +898,22 @@ def api_enable_sync(body):
 # ---------------------------------------------------------------- tri des non catégorisées
 
 def _merchant_key(label):
-    """Clé marchand : préfixe carte/date/virement retiré puis 3 premiers mots. Reste une
-    SOUS-CHAÎNE du libellé brut, donc utilisable telle quelle comme motif de règle."""
-    s = (label or '').upper()
-    s = re.sub(r'^CARTE\s+X?\d+\s+\d{2}/\d{2}\s+', '', s)
-    s = re.sub(r'^PRELEVEMENT EUROPEEN\s+\d+\s+DE:\s*', '', s)
-    s = re.sub(r'^PRLV SEPA\s+', '', s)
-    s = re.sub(r'^\d+\s+VIR\s+\S+\s+', '', s)
-    s = re.sub(r'\s+\d[\d .,]*\s*EUR\b.*', '', s)
-    s = re.sub(r'\s+(COMMERCE ELECTRONIQUE|CB\*?\d+).*', '', s)
-    return ' '.join(s.split()[:3]).strip()
+    """Identifiant de la contrepartie, utilisable comme motif de règle (sous-chaîne du libellé).
+    Extrait le bénéficiaire/émetteur après DE:/POUR: pour les virements (et non la référence),
+    sinon le marchand de la carte ; puis 3 premiers mots."""
+    s = label or ''
+    s = re.sub(r'^CARTE\s+X?\d+\s+\d{2}/\d{2}\s+', '', s, flags=re.I)
+    m = re.search(r'\bPOUR:\s*(.+?)(?:\s+\d{2}\s+\d{2}\b|\s+BQ\b|\s+REF:|\s+MOTIF:|$)', s, flags=re.I)
+    if m:
+        s = m.group(1)
+    m = re.search(r'\bDE:\s*(.+?)(?:\s+MOTIF:|\s+REF:|\s+ID:|\s+/|$)', s, flags=re.I)
+    if m:
+        s = m.group(1)
+    s = re.sub(r'^(?:\d+\s+)?VIR(?:EMENT)?\s+(?:SEPA\s+|EUROPEEN\s+|INSTANTANE\s+|INST\s+)?(?:RECU|EMIS)?\s*', '', s, flags=re.I)
+    s = re.sub(r'^PRLV\s+SEPA\s+', '', s, flags=re.I)
+    s = re.sub(r'\s+\d[\d .,]*\s*EUR\b.*', '', s, flags=re.I)
+    s = re.sub(r'\s+(COMMERCE ELECTRONIQUE|CB\*?\d+).*', '', s, flags=re.I)
+    return ' '.join(s.upper().split()[:3]).strip()
 
 
 _TRIAGE_KEYWORDS = [
@@ -1005,6 +1011,13 @@ def api_triage_apply(body):
         cat = (a.get('categorie') or '').strip()
         if not cat:
             continue
+        # Toujours classer les opérations visées par leur id (fiable, quoi qu'il arrive).
+        for oid in (a.get('ids') or []):
+            o = idmap.get(oid)
+            if o is not None and o.get('categorie') != cat:
+                o['categorie'] = cat
+                changed += 1
+        # En plus : si règle demandée, l'ajouter et reclasser tout ce qui matche le motif.
         if a.get('make_rule') and a.get('pattern'):
             pu = a['pattern'].upper()
             for o in ops:
@@ -1013,12 +1026,6 @@ def api_triage_apply(body):
                     changed += 1
             _add_rule(a['pattern'], cat)
             rules += 1
-        else:
-            for oid in (a.get('ids') or []):
-                o = idmap.get(oid)
-                if o is not None and o.get('categorie') != cat:
-                    o['categorie'] = cat
-                    changed += 1
     if changed or rules:
         try:
             import shutil
