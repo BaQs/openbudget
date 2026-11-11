@@ -16,3 +16,6 @@ data/budget.json
 data/regles_auto.json
 data/merchant_aliases.json
 data/account_maps.json
+
+# Icônes de banque (marques) : non versionnées ; l'app retombe sur les initiales.
+assets/banks/

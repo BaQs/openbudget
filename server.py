@@ -360,6 +360,7 @@ def api_operations(qs):
         'amount': round(o.get('amount', 0), 2),
         'account': o.get('account'),
         'account_label': label_for(o.get('account'), reg),
+        'bank': bank_for(o.get('account'), reg),
         'categorie': o.get('categorie', ''),
         'estimee': bool(o.get('date_estimee')),
     } for o in page]
@@ -975,6 +976,7 @@ def api_triage():
             g = groups[key] = {'pattern': key, 'label': _clean_label(o.get('label', '')),
                                'ids': [], 'total': 0.0, 'count': 0,
                                'account': label_for(o.get('account'), reg),
+                               'bank': bank_for(o.get('account'), reg),
                                'first': None, 'last': None}
         g['ids'].append(_op_id(o))
         g['total'] += o.get('amount', 0)
@@ -1177,6 +1179,30 @@ class Handler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
             self.send_header('Content-Length', str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+            return
+        if path.startswith('/assets/'):
+            import posixpath
+            import mimetypes
+            rel = posixpath.normpath(path.lstrip('/'))
+            if not rel.startswith('assets/'):
+                self.send_error(403)
+                return
+            fp = os.path.join(HERE, rel)
+            if not os.path.isfile(fp):
+                self.send_error(404)
+                return
+            try:
+                with open(fp, 'rb') as f:
+                    body = f.read()
+            except OSError:
+                self.send_error(404)
+                return
+            self.send_response(200)
+            self.send_header('Content-Type', mimetypes.guess_type(fp)[0] or 'application/octet-stream')
+            self.send_header('Content-Length', str(len(body)))
+            self.send_header('Cache-Control', 'max-age=86400')
             self.end_headers()
             self.wfile.write(body)
             return
