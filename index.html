@@ -360,6 +360,7 @@
 <script>
 const eur = n => (n==null?'—':Number(n).toLocaleString('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}));
 const eurc = n => (n==null?'—':Number(n).toLocaleString('fr-FR',{style:'currency',currency:'EUR'}));
+const frDate = iso => { if(!iso) return ''; const d=new Date(iso+'T00:00'); return isNaN(d)?iso:d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'2-digit'}); };
 const $ = id => document.getElementById(id);
 async function j(url,opt){ const r=await fetch(url,opt); return r.json(); }
 function escapeHtml(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
@@ -765,9 +766,10 @@ function renderTriage(d){
   $('triage-body').innerHTML = actions + '<div class="panel">'+UNCAT.map((g,i)=>{
     const tag = g.confidence==='haute' ? `<span class="conf ok">historique ·${g.seen}×</span>`
              : g.confidence==='moyenne' ? `<span class="conf">${g.seen?('historique ·'+g.seen+'×'):'estimation'}</span>` : '';
+    const dt = !g.last ? '' : (g.count>1 && g.first!==g.last ? `${frDate(g.first)} – ${frDate(g.last)}` : frDate(g.last));
     return `<div class="triage" id="tg-${i}">
       <div class="tg-main"><div class="tg-lbl">${escapeHtml(g.label)}${tag}</div>
-        <div class="tg-meta">${g.count} opération${g.count>1?'s':''} · <span class="${g.total<0?'neg':'pos'}">${eurc(g.total)}</span>${g.account?` · ${escapeHtml(g.account)}`:''}</div></div>
+        <div class="tg-meta">${dt?dt+' · ':''}${g.count} opération${g.count>1?'s':''} · <span class="${g.total<0?'neg':'pos'}">${eurc(g.total)}</span>${g.account?` · ${escapeHtml(g.account)}`:''}</div></div>
       <select id="tgc-${i}">${catOptions(g.suggestion||'')}</select>
       <label class="tg-rule"><input type="checkbox" id="tgr-${i}" checked> règle</label>
       <button class="btn" onclick="applyTriage(${i})">Classer</button>

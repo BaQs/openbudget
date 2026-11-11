@@ -968,10 +968,17 @@ def api_triage():
         if not g:
             g = groups[key] = {'pattern': key, 'label': _clean_label(o.get('label', '')),
                                'ids': [], 'total': 0.0, 'count': 0,
-                               'account': label_for(o.get('account'), reg)}
+                               'account': label_for(o.get('account'), reg),
+                               'first': None, 'last': None}
         g['ids'].append(_op_id(o))
         g['total'] += o.get('amount', 0)
         g['count'] += 1
+        d8 = o.get('date') or ''
+        if d8:
+            if not g['first'] or d8 < g['first']:
+                g['first'] = d8
+            if not g['last'] or d8 > g['last']:
+                g['last'] = d8
     out = []
     for key, g in groups.items():
         sugg, conf, seen, share = _triage_suggest(key, g['label'], model, valid)
