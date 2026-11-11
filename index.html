@@ -747,22 +747,31 @@ async function ebSync(sid,key){
 function showLog(lines){ const log=$('synclog'); if(!log) return; log.style.display='block'; log.textContent=(lines||[]).join('\n'); log.scrollIntoView({behavior:'smooth',block:'nearest'}); }
 
 /* ---------- À catégoriser (suggestions côté serveur : ton historique + mots-clés) ---------- */
-let UNCAT=[];
+let UNCAT=[], TRIAGE_META={n_haute:0,n_sugg:0}, triageSort='montant';
 async function loadTriage(){
   const d=await j('/api/triage');
   UNCAT=d.groups||[];
+  TRIAGE_META={n_haute:d.n_haute||0, n_sugg:d.n_sugg||0};
   setUncatBadge(d.total);
   $('triage-sub').textContent = d.total
     ? `${d.total} opérations · ${UNCAT.length} émetteurs · ${d.n_sugg} pré-remplis`
     : 'tout est classé';
-  renderTriage(d);
+  sortTriage(); renderTriage();
 }
-function renderTriage(d){
+function sortTriage(){
+  if(triageSort==='recent') UNCAT.sort((a,b)=>(b.last||'').localeCompare(a.last||''));
+  else if(triageSort==='ancien') UNCAT.sort((a,b)=>(a.last||'').localeCompare(b.last||''));
+  else UNCAT.sort((a,b)=>Math.abs(b.total)-Math.abs(a.total));
+}
+function setTriageSort(v){ triageSort=v; sortTriage(); renderTriage(); }
+function renderTriage(){
   if(!UNCAT.length){ $('triage-body').innerHTML='<div class="panel"><p class="muted" style="margin:0">Rien à catégoriser. Reviens après une synchronisation.</p></div>'; return; }
+  const opt=(v,l)=>`<option value="${v}"${triageSort===v?' selected':''}>${l}</option>`;
   const actions=`<div class="triage-actions">
-    <button class="btn" id="tr-sure" onclick="applyAll('haute')">Classer les ${d.n_haute} sûres</button>
-    <button class="btn ghost" id="tr-all" onclick="applyAll('any')">Classer les ${d.n_sugg} estimations</button>
-    <span class="muted" style="font-size:12.5px">suggéré d'après ton historique et quelques règles — vérifie puis classe</span></div>`;
+    <button class="btn" id="tr-sure" onclick="applyAll('haute')">Classer les ${TRIAGE_META.n_haute} sûres</button>
+    <button class="btn ghost" id="tr-all" onclick="applyAll('any')">Classer les ${TRIAGE_META.n_sugg} estimations</button>
+    <select onchange="setTriageSort(this.value)" style="margin-left:auto">${opt('montant','Trier : montant')}${opt('recent','Trier : plus récent')}${opt('ancien','Trier : plus ancien')}</select>
+    </div>`;
   $('triage-body').innerHTML = actions + '<div class="panel">'+UNCAT.map((g,i)=>{
     const tag = g.confidence==='haute' ? `<span class="conf ok">historique ·${g.seen}×</span>`
              : g.confidence==='moyenne' ? `<span class="conf">${g.seen?('historique ·'+g.seen+'×'):'estimation'}</span>` : '';
